@@ -4,17 +4,13 @@ import PropTypes from 'prop-types'
 
 export class List extends Component {
 
-  
-    editListItem(id){
-        this.props.update(id);
-    }
     
     render() {
         return (
             <ul style={listStyle}>
                 {
                 this.props.list.map((listItem) => (
-                <li key={listItem.id}> <ListItem listItem = {listItem} delLi = {this.props.delLi} /> </li>
+                <li key={listItem.id}> <ListItem listItem = {listItem} delLi = {this.props.delLi} onEdit={this.props.update} /> </li>
                      ))
                  }
             </ul>

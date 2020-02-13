@@ -6,7 +6,11 @@ export class ListItem extends Component {
     constructor(props){
     super(props);
     this.state = {
-        edit: false
+        edit: false,
+        itemEdit: [{
+            title: '',
+            body: ''
+        }]
     }
     this.edit = this.edit.bind(this);
 
@@ -18,24 +22,34 @@ export class ListItem extends Component {
         this.setState({edit: true})
     }
 
-    onSubmit = (e) => {
+    changeTitle = (e) => {
+        this.setState( {itemEdit: {title : e.target.value } });
+    }
+
+    changeBody = (e) => {
+        this.setState({ itemEdit: { body : e.target.value }});
+    }
+
+    onSubmit = (e, id) => {
         e.preventDefault();
-        this.props.editListItem(this.state.id, this.state.title , this.state.body);
+        this.props.onEdit(id, this.state.itemEdit.title , this.state.itemEdit.body);
         this.setState ({edit: false}) ;
     }
 
-    renderEdit() {
+    renderEdit(id) {
         return (
             <div>
                 <form onSubmit = {this.onSubmit}>
                     <input
                     type="text"
-                    ref={input=> this.itemEdit.title = input}
+                    ref={input=> this.state.itemEdit.title = input}
+                    onChange = {this.changeTitle}
                     style = {titleStyle} />
 
                     <input
                     type = "textarea"
-                    ref={input=> this.itemEdit.body = input}
+                    ref={input=> this.state.itemEdit.body = input}
+                    onChange = {this.changeBody}
                     style = {bodyStyle} />
 
                     <button
@@ -57,7 +71,7 @@ export class ListItem extends Component {
                 <div style = {itemStyle}>
                     <span>{title}</span>
                     <FaTrash className="delete" style = {delStyle} onClick={this.props.delLi.bind(this, id)} />
-                    <FaPen className="edit" style = {editStyle} onClick= {this.edit}/>
+                    <FaPen className="edit" style = {editStyle} onClick= {this.edit.bind(this, id, title, body)}/>
 
 
                             {/* Hover Styling only.
@@ -79,7 +93,7 @@ export class ListItem extends Component {
     
     render() {
         const {id, title, body} = this.props.listItem;
-        return this.state.edit ? this.renderEdit() : this.renderUI(id, title, body);
+        return this.state.edit ? this.renderEdit(id, title, body) : this.renderUI(id, title, body);
     }
 }
 

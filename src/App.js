@@ -29,14 +29,21 @@ addListItem = (title, body) => {
 .then(res => this.setState({list : [...this.state.list, res.data]}))
 }
 
-update(itemEdit, i){
-  console.log(`Update ${i}: ${itemEdit}`);
+update(id, title, body, i){
+  Axios.put(`https://jsonplaceholder.typicode.com/posts/${id}` , {
+    title,
+    body
+  })
+  .then(res => this.setState(prevState => ({
+    list: prevState.list.map(
+        item => item.id !== i ? item : {...item, item: [id, title, body]}
+    )})))
 
-  this.setState( prevState => ({
-      list: prevState.list.map(
-          item => item.id !== i ? item : {...item, item: itemEdit}
-      )
-  }))
+  // this.setState( prevState => ({
+  //     list: prevState.list.map(
+  //         item => item.id !== i ? item : {...item, item: itemEdit}
+  //     )
+  // }))
 }
 
 
@@ -44,9 +51,9 @@ update(itemEdit, i){
     return (
       <div>
         <span className = "backgroundImage"></span>
-        <AddListItem addListItem = {this.addListItem} onEdit = {this.editListItem}/>
+        <AddListItem addListItem = {this.addListItem} />
         <CenterImage />
-        <List list={this.state.list} delLi = {this.delLi} />
+        <List list={this.state.list} delLi = {this.delLi} onEdit = {this.update}/>
       </div>
     )
   }
