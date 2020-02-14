@@ -12,17 +12,17 @@ export class App extends Component {
 }
 
 componentDidMount () {
-Axios.get('https://jsonplaceholder.typicode.com/posts')
+Axios.get('https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts')
 .then(res => this.setState({list : res.data}))
 }
 
 delLi = (id) => {
-Axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+Axios.delete(`https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts/${id}`)
 .then(res => this.setState({list: [...this.state.list.filter(ListItem => ListItem.id !== id)]}))
 }
 
 addListItem = (title, body) => {
-  Axios.post('https://jsonplaceholder.typicode.com/posts', {
+  Axios.post('https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts', {
     title,
     body
   })
@@ -30,7 +30,7 @@ addListItem = (title, body) => {
 }
 
 update(id, title, body, i){
-  Axios.put(`https://jsonplaceholder.typicode.com/posts/${id}` , {
+  Axios.put(`https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts/${id}` , {
     title,
     body
   })

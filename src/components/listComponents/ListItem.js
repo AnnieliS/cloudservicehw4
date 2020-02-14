@@ -42,13 +42,13 @@ export class ListItem extends Component {
                 <form onSubmit = {this.onSubmit}>
                     <input
                     type="text"
-                    ref={input=> this.state.itemEdit.title = input}
+   //                 ref={input=> this.state.itemEdit.title = input}
                     onChange = {this.changeTitle}
                     style = {titleStyle} />
 
                     <input
                     type = "textarea"
-                    ref={input=> this.state.itemEdit.body = input}
+    //                ref={input=> this.state.itemEdit.body = input}
                     onChange = {this.changeBody}
                     style = {bodyStyle} />
 
