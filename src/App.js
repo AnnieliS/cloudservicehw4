@@ -4,6 +4,8 @@ import List from './components/listComponents/List';
 import CenterImage from './components/CenterImage';
 import Axios from 'axios';
 import AddListItem from './components/listComponents/AddListItem';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 export class App extends Component {
@@ -12,6 +14,7 @@ export class App extends Component {
 }
 
 componentDidMount () {
+  
 Axios.get('https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts')
 .then(res => this.setState({list : res.data}))
 }
@@ -22,6 +25,7 @@ Axios.delete(`https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typico
 }
 
 addListItem = (title, body) => {
+  
   Axios.post('https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts', {
     title,
     body
@@ -29,22 +33,18 @@ addListItem = (title, body) => {
 .then(res => this.setState({list : [...this.state.list, res.data]}))
 }
 
-updateListItem(id, title, body){
-  console.log("id: " +  id + " // title: " + title + " // body: " + body);
+updateListItem = (id, title, body) => {
+
   Axios.put(`https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts/${id}` , {
     title,
     body
   })
   .then(res => this.setState(prevState => ({
     list: prevState.list.map(
-        item => item.id !== res.id ? res : {...item, item: [id, title, body]}
-    )})))
-
-  // this.setState( prevState => ({
-  //     list: prevState.list.map(
-  //         item => item.id !== i ? item : {...item, item: itemEdit}
-  //     )
-  // }))
+      listItem => listItem.id !== res.data.id ? listItem : {listItem: res.data}
+    )
+  })
+  ))
 }
 
 

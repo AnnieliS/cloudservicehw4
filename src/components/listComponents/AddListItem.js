@@ -26,14 +26,15 @@ export class AddListItem extends Component {
     render() {
         return (
             <div>
-                <form style = {formStyle} onSubmit = {this.onSubmit}>
+                <form style = {formStyle} onSubmit = {this.onSubmit} className = "form-group">
                     <input
                     type="text"
                     name = "title"
                     placeholder = "Item Title..."
                     value = {this.state.title}
                     onChange = {this.changeTitle}
-                    style = {titleStyle} />
+                    style = {titleStyle}
+                    className = "form-control" />
 
                     <input
                     type = "textarea"
@@ -41,7 +42,8 @@ export class AddListItem extends Component {
                     placeholder= "Item Body..."
                     value = {this.state.body}
                     onChange = {this.changeBody}
-                    style = {bodyStyle} />
+                    style = {bodyStyle}
+                    className = "form-control"  />
 
                     <button
                     type = "submit"

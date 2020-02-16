@@ -7,13 +7,13 @@ export class ListItem extends Component {
     super(props);
     this.state = {
         edit: false,
-        itemEdit: [{
+        itemEdit: {
             id : '',
             title: '',
             body: ''
-        }]
+        }
     }
-    this.edit = this.edit.bind(this);
+    //this.edit = this.edit.bind(this);
   //  this.onEdit = this.props.onEdit.bind(this);
 
 }
@@ -21,16 +21,16 @@ export class ListItem extends Component {
 
     edit(id) {
         //this.props.editListItem(this.id).bind(this.id);
-        this.setState({itemEdit : {id : this.id}})
+        this.setState({itemEdit : {id : id , title : this.state.itemEdit.title , body : this.state.itemEdit.body}})
         this.setState({edit: true})
     }
 
     changeTitle = (e) => {
-        this.setState( {itemEdit: {title : e.target.value } });
+        this.setState({itemEdit: { id : this.state.itemEdit.id , title : e.target.value , body : this.state.itemEdit.body}});
     }
 
     changeBody = (e) => {
-        this.setState({ itemEdit: { body : e.target.value }});
+        this.setState({ itemEdit: {id : this.state.itemEdit.id , title : this.state.itemEdit.title, body : e.target.value }});
     }
 
     onSubmit = (e, id) => {
@@ -44,21 +44,23 @@ export class ListItem extends Component {
     renderEdit() {
         return (
             <div>
-                <form onSubmit = {this.onSubmit}>
+                <form onSubmit = {this.onSubmit} className = "form-group">
                     <input
                     type="text"
                     name = "title"
                     //ref={input=> this.state.itemEdit.title = input}
-                    value = {this.state.itemEdit.title}
+                    value = {this.state.itemEdit.title || ''}
                     onChange = {this.changeTitle}
-                    style = {titleStyle} />
+                    style = {titleStyle}
+                    className = "form-control" />
 
                     <input
                     type = "textarea"
                     title = "body"
-                    value = {this.state.itemEdit.body} 
+                    value = {this.state.itemEdit.body || ''} 
                     onChange = {this.changeBody}
-                    style = {bodyStyle} />
+                    style = {bodyStyle}
+                    className = "form-control" />
 
                     <button
                     type = "submit"
@@ -74,8 +76,8 @@ export class ListItem extends Component {
 
     renderUI(id, title, body) {
         let titleToShow = title;
-        if (titleToShow.length > 20)
-        titleToShow = titleToShow.slice(0,19) + "..."
+        // if (titleToShow.length > 20)
+        // titleToShow = titleToShow.slice(0,19) + "..."
 
         return(
             
