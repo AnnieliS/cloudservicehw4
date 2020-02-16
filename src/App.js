@@ -17,12 +17,15 @@ componentDidMount () {
   
 Axios.get('https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts')
 .then(res => this.setState({list : res.data}))
+.catch(res => console.log(res));
 }
 
 delLi = (id) => {
 Axios.delete(`https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts/${id}`)
 .then(res => this.setState({list: [...this.state.list.filter(ListItem => ListItem.id !== id)]}))
+.catch(res => console.log(res));
 }
+
 
 addListItem = (title, body) => {
   
@@ -31,6 +34,7 @@ addListItem = (title, body) => {
     body
   })
 .then(res => this.setState({list : [...this.state.list, res.data]}))
+.catch(res => console.log(res));
 }
 
 updateListItem = (id, title, body) => {
@@ -45,6 +49,7 @@ updateListItem = (id, title, body) => {
     )
   })
   ))
+  .catch(res => console.log(res));
 }
 
 
