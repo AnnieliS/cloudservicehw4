@@ -76,8 +76,8 @@ export class ListItem extends Component {
 
     renderUI(id, title, body) {
         let titleToShow = title;
-        // if (titleToShow.length > 20)
-        // titleToShow = titleToShow.slice(0,19) + "..."
+        if (titleToShow.length > 20)
+        titleToShow = titleToShow.slice(0,19) + "..."
 
         return(
             

@@ -41,7 +41,7 @@ updateListItem = (id, title, body) => {
   })
   .then(res => this.setState(prevState => ({
     list: prevState.list.map(
-      listItem => listItem.id !== res.data.id ? listItem : {listItem: res.data}
+      listItem => listItem.id !== res.data.id ? listItem : res.data
     )
   })
   ))
