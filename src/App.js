@@ -29,14 +29,15 @@ addListItem = (title, body) => {
 .then(res => this.setState({list : [...this.state.list, res.data]}))
 }
 
-update(id, title, body, i){
+updateListItem(id, title, body){
+  console.log("id: " +  id + " // title: " + title + " // body: " + body);
   Axios.put(`https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts/${id}` , {
     title,
     body
   })
   .then(res => this.setState(prevState => ({
     list: prevState.list.map(
-        item => item.id !== i ? item : {...item, item: [id, title, body]}
+        item => item.id !== res.id ? res : {...item, item: [id, title, body]}
     )})))
 
   // this.setState( prevState => ({
@@ -53,7 +54,7 @@ update(id, title, body, i){
         <span className = "backgroundImage"></span>
         <AddListItem addListItem = {this.addListItem} />
         <CenterImage />
-        <List list={this.state.list} delLi = {this.delLi} onEdit = {this.update}/>
+        <List list={this.state.list} delLi = {this.delLi} updateListItem = {this.updateListItem}/>
       </div>
     )
   }

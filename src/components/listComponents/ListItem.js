@@ -8,17 +8,20 @@ export class ListItem extends Component {
     this.state = {
         edit: false,
         itemEdit: [{
+            id : '',
             title: '',
             body: ''
         }]
     }
     this.edit = this.edit.bind(this);
+  //  this.onEdit = this.props.onEdit.bind(this);
 
 }
 
 
-    edit() {
+    edit(id) {
         //this.props.editListItem(this.id).bind(this.id);
+        this.setState({itemEdit : {id : this.id}})
         this.setState({edit: true})
     }
 
@@ -32,23 +35,28 @@ export class ListItem extends Component {
 
     onSubmit = (e, id) => {
         e.preventDefault();
-        this.props.onEdit(id, this.state.itemEdit.title , this.state.itemEdit.body);
+        this.props.updateListItem(this.state.itemEdit.id, this.state.itemEdit.title , this.state.itemEdit.body);
+//        this.props.updateListItem.bind(this, id, this.state.itemEdit.title, this.state.itemEdit.body)
+        this.setState ({itemEdit : {id: '' , title: '' , body : ''}}) ;
         this.setState ({edit: false}) ;
     }
 
-    renderEdit(id) {
+    renderEdit() {
         return (
             <div>
                 <form onSubmit = {this.onSubmit}>
                     <input
                     type="text"
-   //                 ref={input=> this.state.itemEdit.title = input}
+                    name = "title"
+                    //ref={input=> this.state.itemEdit.title = input}
+                    value = {this.state.itemEdit.title}
                     onChange = {this.changeTitle}
                     style = {titleStyle} />
 
                     <input
                     type = "textarea"
-    //                ref={input=> this.state.itemEdit.body = input}
+                    title = "body"
+                    value = {this.state.itemEdit.body} 
                     onChange = {this.changeBody}
                     style = {bodyStyle} />
 
@@ -65,13 +73,16 @@ export class ListItem extends Component {
     
 
     renderUI(id, title, body) {
-        
+        let titleToShow = title;
+        if (titleToShow.length > 20)
+        titleToShow = titleToShow.slice(0,19) + "..."
+
         return(
             
                 <div style = {itemStyle}>
-                    <span>{title}</span>
+                    <span>{titleToShow}</span>
                     <FaTrash className="delete" style = {delStyle} onClick={this.props.delLi.bind(this, id)} />
-                    <FaPen className="edit" style = {editStyle} onClick= {this.edit.bind(this, id, title, body)}/>
+                    <FaPen className="edit" style = {editStyle} onClick= {this.edit.bind(this,id)}/>
 
 
                             {/* Hover Styling only.

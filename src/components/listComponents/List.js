@@ -10,7 +10,7 @@ export class List extends Component {
             <ul style={listStyle}>
                 {
                 this.props.list.map((listItem) => (
-                <li key={listItem.id}> <ListItem listItem = {listItem} delLi = {this.props.delLi} onEdit={this.props.update} /> </li>
+                <li key={listItem.id}> <ListItem listItem = {listItem} delLi = {this.props.delLi} updateListItem = {this.props.updateListItem} /> </li>
                      ))
                  }
             </ul>
